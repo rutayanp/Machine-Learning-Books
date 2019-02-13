@@ -1,0 +1,145 @@
+
+>>> a=2
+>>> b=a
+>>> a=a+3 // creates new object
+>>> a
+5
+>>> b // b still points to old object which was pointed by a
+2
+>>> b=a
+>>> b
+5
+
+>>> a+=2 // This shorthand also creates new object because a is immutable int
+>>> a
+7
+>>> b    // b still points to old object which pointed to a
+5
+>>> b is a
+False
+
+-------------------------------------------------------------------------------------
+// List ops : Append, Extend and += and a=a+list
+-------------------------------------------------------------------------------------
+Append and Extend both make in place changes and do not create new list
+Append doesn't expect argument to be an iterable and just appends the argument as is
+Extend needs an argument to be iterable but doesn't expand nested ones 
+	   a.extend(9) will not work as 9 is not an iterable
+Shorthand += doesn't create new list, it changes the existing one in place
+a=a+list creates a new list
+-------------------------------------------------------------------------------------
+
+>>> a=[1,2]
+>>> a.append([3,4])
+>>> a
+[1, 2, [3, 4]]
+>>> a.pop()
+[3, 4]
+>>> a
+[1, 2]
+>>> b=a
+>>> a.append([3])
+>>> b
+[1, 2, [3]]
+>>> a
+[1, 2, [3]]
+>>> a.pop()
+[3]
+>>> a
+[1, 2]
+>>> b
+[1, 2]
+>>> a=a+2
+Traceback (most recent call last):
+  File "<pyshell#29>", line 1, in <module>
+    a=a+2
+TypeError: can only concatenate list (not "int") to list
+>>> a=a+[2,3]
+>>> a
+[1, 2, 2, 3]
+>>> b
+[1, 2]
+>>> a.extend([4,5])
+>>> a
+[1, 2, 2, 3, 4, 5]
+>>> b
+[1, 2]
+>>> a.pop()
+5
+>>> a
+[1, 2, 2, 3, 4]
+>>> b=a
+>>> b
+[1, 2, 2, 3, 4]
+>>> a
+[1, 2, 2, 3, 4]
+>>> b,a
+([1, 2, 2, 3, 4], [1, 2, 2, 3, 4])
+>>> b is a
+True
+>>> b.extend([5,6,7])
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7]
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7]
+>>> b is a
+True
+>>> a.append(2)
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7, 2]
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7, 2]
+>>> b is a
+True
+>>> a.extend(8)
+Traceback (most recent call last):
+  File "<pyshell#52>", line 1, in <module>
+    a.extend(8)
+TypeError: 'int' object is not iterable
+>>> a.extend([8])
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8]
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8]
+>>> b is a
+True
+>>> a.extend([[11,21],90])
+>>> q
+Traceback (most recent call last):
+  File "<pyshell#58>", line 1, in <module>
+    q
+NameError: name 'q' is not defined
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90]
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90]
+>>> a+=[34]
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34]
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34]
+>>> 
+>>> b is a
+True
+>>> a+=[23,[43]]
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34, 23, [43]]
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34, 23, [43]]
+>>> a+=56
+Traceback (most recent call last):
+  File "<pyshell#69>", line 1, in <module>
+    a+=56
+TypeError: 'int' object is not iterable
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34, 23, [43]]
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34, 23, [43]]
+>>> a=a+[99]
+>>> a
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34, 23, [43], 99]
+>>> b
+[1, 2, 2, 3, 4, 5, 6, 7, 2, 8, [11, 21], 90, 34, 23, [43]]
+>>> b is a
+False
+>>> 
